@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  llama:
+    container_name: llama-0.1
+    hostname: llama
+    build: 
+      context: .
+      dockerfile: ./pytorch.Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+    - ./llama:/llama
+    - $HOME/llama:/data
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
